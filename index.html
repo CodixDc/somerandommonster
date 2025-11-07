@@ -19,7 +19,7 @@
 
   .clock {
     display: flex;
-    font-size: 4rem;
+    font-size: 12rem; /* huge display */
     opacity: 0;
     animation: fadeIn 1s forwards;
   }
@@ -30,7 +30,7 @@
 
   .digit-container {
     position: relative;
-    width: 2ch;
+    width: 1.1ch; /* tight spacing */
     height: 1em;
     overflow: hidden;
   }
@@ -44,12 +44,12 @@
   }
 
   .colon {
-    margin: 0 0.1em;
+    margin: 0 0.05em; /* minimal gap */
   }
 
   .date {
-    margin-top: 0.5rem;
-    font-size: 1.5rem;
+    margin-top: 1rem;
+    font-size: 3rem;
     color: #80ffc8;
   }
 </style>
@@ -67,6 +67,8 @@
 <div class="date" id="date">Loading date...</div>
 
 <script>
+console.log("hello"); // prints "hello" in Inspect/console
+
 function pad(n){return n.toString().padStart(2,'0');}
 
 function updateClock(){
@@ -105,7 +107,7 @@ function updateClock(){
 // Fade-in clock first
 window.addEventListener('load', () => {
   updateClock(); // first render
-  setInterval(updateClock, 1000); // then update every second
+  setInterval(updateClock, 1000); // update every second
 });
 </script>
 
