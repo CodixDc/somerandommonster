@@ -14,7 +14,7 @@
     align-items: center;
     background: #111;
     font-family: 'Courier New', monospace;
-    color: #80ffc8;
+    color: #4fffdc;
   }
 
   .clock {
@@ -44,13 +44,13 @@
   }
 
   .colon {
-    margin: 0 0.05em; /* minimal gap */
+    margin: 0 0.05em;
   }
 
   .date {
     margin-top: 1rem;
     font-size: 3rem;
-    color: #80ffc8;
+    color: #4fffdc;
   }
 </style>
 </head>
@@ -67,18 +67,35 @@
 <div class="date" id="date">Loading date...</div>
 
 <script>
-console.log("hello"); // prints "hello" in Inspect/console
-
 function pad(n){return n.toString().padStart(2,'0');}
 
-function updateClock(){
+// Initialize digits without animation
+function initClock() {
   const now = new Date();
   const options = {timeZone:"Europe/Stockholm"};
 
   const hours = pad(now.toLocaleTimeString("en-GB",{...options,hour:"2-digit",hour12:false}));
   const minutes = pad(now.toLocaleTimeString("en-GB",{...options,minute:"2-digit"}));
-
   const timeString = hours + minutes;
+
+  const digits = document.querySelectorAll('.digit-container .digit');
+  digits.forEach((digitEl, i) => {
+    digitEl.textContent = timeString[i]; // set correct digit immediately
+  });
+
+  const dateOptions = {timeZone:"Europe/Stockholm",weekday:"long",day:"numeric",month:"long",year:"numeric"};
+  document.getElementById('date').textContent = now.toLocaleDateString("en-GB",dateOptions);
+}
+
+// Update digits with slide animation
+function updateClock() {
+  const now = new Date();
+  const options = {timeZone:"Europe/Stockholm"};
+
+  const hours = pad(now.toLocaleTimeString("en-GB",{...options,hour:"2-digit",hour12:false}));
+  const minutes = pad(now.toLocaleTimeString("en-GB",{...options,minute:"2-digit"}));
+  const timeString = hours + minutes;
+
   const digits = document.querySelectorAll('.digit-container .digit');
 
   digits.forEach((digitEl,i)=>{
@@ -104,10 +121,12 @@ function updateClock(){
   document.getElementById('date').textContent = now.toLocaleDateString("en-GB",dateOptions);
 }
 
-// Fade-in clock first
+// Fade-in then initialize
 window.addEventListener('load', () => {
-  updateClock(); // first render
-  setInterval(updateClock, 1000); // update every second
+  initClock();          // set digits immediately
+  const clockEl = document.getElementById('clock');
+  clockEl.style.opacity = 1; // fade-in handled by CSS animation
+  setInterval(updateClock, 1000); // start updates after
 });
 </script>
 
