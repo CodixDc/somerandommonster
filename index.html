@@ -12,19 +12,25 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: #111; /* softer dark background */
+    background: #111;
     font-family: 'Courier New', monospace;
-    color: #80ffc8; /* softer cyan */
+    color: #80ffc8;
   }
 
   .clock {
     display: flex;
-    font-size: 4rem; /* smaller */
+    font-size: 4rem;
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
   }
 
   .digit-container {
     position: relative;
-    width: 2ch; /* tighter spacing */
+    width: 2ch;
     height: 1em;
     overflow: hidden;
   }
@@ -38,11 +44,11 @@
   }
 
   .colon {
-    margin: 0 0.1em; /* reduce spacing around colon */
+    margin: 0 0.1em;
   }
 
   .date {
-    margin-top: 0.5rem; /* smaller gap */
+    margin-top: 0.5rem;
     font-size: 1.5rem;
     color: #80ffc8;
   }
@@ -96,8 +102,11 @@ function updateClock(){
   document.getElementById('date').textContent = now.toLocaleDateString("en-GB",dateOptions);
 }
 
-updateClock();
-setInterval(updateClock,1000);
+// Fade-in clock first
+window.addEventListener('load', () => {
+  updateClock(); // first render
+  setInterval(updateClock, 1000); // then update every second
+});
 </script>
 
 </body>
