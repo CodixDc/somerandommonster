@@ -1,65 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 <head>
-<meta charset="UTF-8">
-<title>Self-contained Screen Recorder</title>
-<style>
-  body { font-family: sans-serif; text-align: center; margin-top: 50px; }
-  video { border: 1px solid black; margin-top: 20px; width: 600px; height: 340px; }
-  button { margin: 5px; padding: 10px 20px; font-size: 16px; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Svensk tid</title>
+  <style>
+    body {
+      background: #0e0e0e;
+      color: #00ff88;
+      font-family: "Courier New", monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 5rem;
+      margin: 0;
+    }
+
+    p {
+      margin-top: 1rem;
+      color: #aaa;
+      font-size: 1.2rem;
+    }
+  </style>
 </head>
 <body>
+  <h1 id="time"></h1>
+  <p>Svensk tid (Europe/Stockholm)</p>
 
-<h1>Screen/Window/Tab Recorder</h1>
-<button id="start">Start Recording</button>
-<button id="stop" disabled>Stop Recording</button>
-<video id="preview" autoplay muted></video>
+  <script>
+    function updateTime() {
+      const options = {
+        timeZone: "Europe/Stockholm",
+        hour12: false,
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+      };
+      const now = new Date().toLocaleTimeString("sv-SE", options);
+      document.getElementById("time").textContent = now;
+    }
 
-<script>
-const startBtn = document.getElementById('start');
-const stopBtn = document.getElementById('stop');
-const preview = document.getElementById('preview');
-
-let recorder, chunks = [];
-
-startBtn.onclick = async () => {
-  try {
-    // Request screen/window/tab
-    const stream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
-    preview.srcObject = stream;
-
-    recorder = new MediaRecorder(stream);
-    chunks = [];
-
-    recorder.ondataavailable = e => { if(e.data.size) chunks.push(e.data); };
-    recorder.onstop = () => {
-      const blob = new Blob(chunks, { type: 'video/webm' });
-      const url = URL.createObjectURL(blob);
-
-      // Trigger download
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'recording.webm';
-      a.click();
-      URL.revokeObjectURL(url);
-    };
-
-    recorder.start();
-    startBtn.disabled = true;
-    stopBtn.disabled = false;
-  } catch(e) {
-    console.error("Screen capture failed:", e);
-  }
-};
-
-stopBtn.onclick = () => {
-  recorder.stop();
-  preview.srcObject.getTracks().forEach(track => track.stop());
-  startBtn.disabled = false;
-  stopBtn.disabled = true;
-};
-</script>
-
+    updateTime();
+    setInterval(updateTime, 1000);
+  </script>
 </body>
 </html>
