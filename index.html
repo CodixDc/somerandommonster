@@ -1,106 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Current Time in Sweden</title>
-  <style>
-    /* --- Page layout --- */
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(-45deg, #0a0a0a, #111, #1b1b1b, #0f0f0f);
-      background-size: 400% 400%;
-      animation: gradientShift 15s ease infinite;
-      color: #00ffc8;
-      font-family: 'Segoe UI', Roboto, sans-serif;
-      text-align: center;
-      overflow: hidden;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sweden Clock</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #0a0a0a;
+    font-family: 'Courier New', monospace;
+    color: #00ffc8;
+    text-align: center;
+  }
 
-    /* --- Animations --- */
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+  /* Clock styling */
+  .clock {
+    display: flex;
+    font-size: 5rem;
+  }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+  .digit {
+    position: relative;
+    width: 3ch;
+    height: 1em;
+    overflow: hidden;
+  }
 
-    @keyframes glowPulse {
-      0% { text-shadow: 0 0 5px #00ffc8, 0 0 15px #00ffc8; }
-      50% { text-shadow: 0 0 15px #00ffc8, 0 0 35px #00ffc8; }
-      100% { text-shadow: 0 0 5px #00ffc8, 0 0 15px #00ffc8; }
-    }
+  .digit span {
+    display: block;
+    transform: translateY(0);
+    transition: transform 0.3s ease-in-out;
+  }
 
-    /* --- Clock text --- */
-    h1 {
-      font-size: 5rem;
-      letter-spacing: 2px;
-      animation: fadeIn 1s ease-out, glowPulse 3s infinite ease-in-out;
-    }
+  /* Date styling */
+  .date {
+    margin-top: 1rem;
+    font-size: 2rem;
+    color: #00ffc8;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
 
-    .date {
-      color: #bbb;
-      font-size: 1.4rem;
-      margin-top: 0.6rem;
-      animation: fadeIn 1.5s ease-out forwards;
-    }
+  .date.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
-    .zone {
-      color: #888;
-      font-size: 1.1rem;
-      margin-top: 0.3rem;
-      letter-spacing: 0.5px;
-      animation: fadeIn 2s ease-out forwards;
-    }
-
-    footer {
-      position: absolute;
-      bottom: 15px;
-      font-size: 0.9rem;
-      color: #555;
-    }
-  </style>
+  /* Colon spacing */
+  .colon {
+    margin: 0 0.2em;
+  }
+</style>
 </head>
 <body>
-  <h1 id="time">--:--:--</h1>
-  <p class="date" id="date">Loading date...</p>
-  <p class="zone">Time zone: Europe/Stockholm</p>
 
-  <footer>Made with 💚 in Sweden</footer>
+<div class="clock" id="clock">
+  <div class="digit"><span>0</span></div>
+  <div class="digit"><span>0</span></div>
+  <div class="colon">:</div>
+  <div class="digit"><span>0</span></div>
+  <div class="digit"><span>0</span></div>
+  <div class="colon">:</div>
+  <div class="digit"><span>0</span></div>
+  <div class="digit"><span>0</span></div>
+</div>
 
-  <script>
-    function updateTime() {
-      const optionsTime = {
-        timeZone: "Europe/Stockholm",
-        hour12: false,
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit"
-      };
-      const optionsDate = {
-        timeZone: "Europe/Stockholm",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        weekday: "long"
-      };
+<div class="date" id="date">Loading date...</div>
 
-      const now = new Date();
-      document.getElementById("time").textContent = now.toLocaleTimeString("en-GB", optionsTime);
-      document.getElementById("date").textContent = now.toLocaleDateString("en-GB", optionsDate);
+<script>
+function pad(n){ return n.toString().padStart(2,'0'); }
+
+function updateClock() {
+  const now = new Date();
+  const optionsTime = { timeZone: "Europe/Stockholm" };
+  const hours = pad(now.toLocaleTimeString("en-GB", {...optionsTime, hour: "2-digit", hour12:false}));
+  const minutes = pad(now.toLocaleTimeString("en-GB", {...optionsTime, minute: "2-digit"}));
+  const seconds = pad(now.toLocaleTimeString("en-GB", {...optionsTime, second: "2-digit"}));
+
+  const timeString = hours + minutes + seconds;
+  const digits = document.querySelectorAll('.digit span');
+
+  for(let i=0;i<digits.length;i++){
+    if(digits[i].textContent !== timeString[i]){
+      digits[i].textContent = timeString[i];
+      digits[i].style.transform = 'translateY(-100%)';
+      setTimeout(()=>digits[i].style.transform='translateY(0)',10);
     }
+  }
 
-    updateTime();
-    setInterval(updateTime, 1000);
-  </script>
+  // Update date
+  const optionsDate = { timeZone:"Europe/Stockholm", weekday:"long", day:"numeric", month:"long", year:"numeric" };
+  const dateText = now.toLocaleDateString("en-GB", optionsDate);
+  const dateEl = document.getElementById('date');
+  dateEl.textContent = dateText;
+  dateEl.classList.add('show');
+}
+
+updateClock();
+setInterval(updateClock, 1000);
+</script>
+
 </body>
 </html>
