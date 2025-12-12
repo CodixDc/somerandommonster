@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sweden Clock</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #111; /* dark background */
+    font-family: 'Courier New', monospace;
+    color: #ddd; /* light gray digits */
+  }
+
+  .clock {
+    display: flex;
+    font-size: 12rem; /* huge display */
+    opacity: 0;
+    animation: fadeIn 1s forwards; /* fade-in on page load */
+  }
+
+  .date {
+    margin-top: 1rem;
+    font-size: 3rem;
+    color: #ddd;
+    opacity: 0;
+    animation: fadeIn 1.5s forwards; /* fade-in for date */
+    animation-delay: 0.5s; /* slight delay so it appears after the clock */
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  .digit-container {
+    position: relative;
+    width: 1.1ch; /* tight spacing */
+    height: 1em;
+    overflow: hidden;
+  }
+
+  .digit {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.5s ease-in-out; /* slide animation on time change only */
+  }
+
+  .colon {
+    margin: 0 0.05em;
+  }
+</style>
+</head>
+<body>
+
+<div class="clock" id="clock">
+  <div class="digit-container"><div class="digit">0</div></div>
+  <div class="digit-container"><div class="digit">0</div></div>
+  <div class="colon">:</div>
+  <div class="digit-container"><div class="digit">0</div></div>
+  <div class="digit-container"><div class="digit">0</div></div>
+</div>
+
+<div class="date" id="date">Loading date...</div>
+
+<script>
+function pad(n){return n.toString().padStart(2,'0');}
+
+// Initialize digits immediately without slide animation
+function initClock() {
+  const now = new Date();
+  const options = {timeZone:"Europe/Stockholm"};
+
+  const hours = pad(now.toLocaleTimeString("en-GB",{...options,hour:"2-digit",hour12:false}));
+  const minutes = pad(now.toLocaleTimeString("en-GB",{...options,minute:"2-digit"}));
+  const timeString = hours + minutes;
+
+  const digits = document.querySelectorAll('.digit-container .digit');
+  digits.forEach((digitEl, i) => {
+    digitEl.textContent = timeString[i];
+  });
+
+  const dateOptions = {timeZone:"Europe/Stockholm",weekday:"long",day:"numeric",month:"long",year:"numeric"};
+  document.getElementById('date').textContent = now.toLocaleDateString("en-GB",dateOptions);
+}
+
+// Update digits with slide animation only when they change
+function updateClock() {
+  const now = new Date();
+  const options = {timeZone:"Europe/Stockholm"};
+
+  const hours = pad(now.toLocaleTimeString("en-GB",{...options,hour:"2-digit",hour12:false}));
+  const minutes = pad(now.toLocaleTimeString("en-GB",{...options,minute:"2-digit"}));
+  const timeString = hours + minutes;
+
+  const digits = document.querySelectorAll('.digit-container .digit');
+
+  digits.forEach((digitEl, i) => {
+    const current = digitEl.textContent;
+    const next = timeString[i];
+
+    if (current !== next) {
+      const temp = document.createElement('div');
+      temp.className = 'digit';
+      temp.textContent = next;
+      temp.style.transform = 'translateY(100%)';
+      digitEl.parentNode.appendChild(temp);
+
+      requestAnimationFrame(() => {
+        digitEl.style.transform = 'translateY(-100%)';
+        temp.style.transform = 'translateY(0)';
+      });
+
+      setTimeout(() => { digitEl.remove(); }, 500);
+    }
+  });
+
+  const dateOptions = {timeZone:"Europe/Stockholm",weekday:"long",day:"numeric",month:"long",year:"numeric"};
+  document.getElementById('date').textContent = now.toLocaleDateString("en-GB",dateOptions);
+}
+
+// Fade-in clock and initialize digits immediately
+window.addEventListener('load', () => {
+  initClock();           // set correct time immediately
+  setInterval(updateClock, 1000); // then animate digits only when they change
+});
+</script>
+
+</body>
+</html>
