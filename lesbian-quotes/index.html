@@ -1,1 +1,431 @@
-WIP
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesbian Quotes</title>
+  <link href="https://fonts.cdnfonts.com/css/manteman" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --text: #e8e2d9;
+      --accent: #f7a8c4;
+      --dim: #444;
+    }
+
+    html { overflow: hidden; height: 100%; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Manteman', cursive;
+      height: 100%;
+      overflow: hidden;
+      cursor: default;
+    }
+
+    #scroll-wrap {
+      height: 100vh;
+      overflow-y: scroll;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      position: relative;
+    }
+    #scroll-wrap::-webkit-scrollbar { display: none; }
+
+    #scrollbar-track {
+      position: fixed;
+      right: 8px;
+      top: 12%;
+      height: 76%;
+      width: 2px;
+      background: #141414;
+      border-radius: 99px;
+      z-index: 100;
+    }
+
+    #scrollbar-thumb {
+      position: absolute;
+      width: 2px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 99px;
+      top: 0;
+      transition: background 0.2s;
+      cursor: grab;
+    }
+    #scrollbar-thumb:hover,
+    #scrollbar-thumb.dragging { background: rgba(255,255,255,0.35); }
+
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1rem;
+      position: relative;
+    }
+
+    .hero-label {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(0.55rem, 1.3vw, 0.75rem);
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      color: var(--accent);
+      opacity: 0;
+      animation: fadeUp 1s ease 0.3s forwards;
+    }
+
+    .hero-main {
+      font-family: 'Manteman', cursive;
+      font-size: clamp(3rem, 11vw, 7.5rem);
+      color: var(--text);
+      opacity: 0;
+      animation: fadeUp 1s ease 0.6s forwards;
+      line-height: 1;
+    }
+
+    .hero-sub {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(0.5rem, 1vw, 0.65rem);
+      letter-spacing: 0.3em;
+      color: var(--dim);
+      opacity: 0;
+      animation: fadeUp 1s ease 0.9s forwards;
+      text-transform: uppercase;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.4em;
+      color: var(--dim);
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp 1s ease 1.3s forwards;
+    }
+
+    .quotes-container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 2rem 2.5rem 10rem;
+    }
+
+    .quote-block {
+      padding: 3.5rem 0;
+      border-bottom: 1px solid #151515;
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .quote-block.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .quote-block:last-child { border-bottom: none; }
+
+    .quote-number {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.4em;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+      text-transform: uppercase;
+      opacity: 0.6;
+    }
+
+    .quote-text {
+      font-family: 'Manteman', cursive;
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      line-height: 1.4;
+      color: var(--text);
+    }
+
+    .quote-text.short {
+      font-size: clamp(2.8rem, 7vw, 4.5rem);
+      line-height: 1.2;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    ::selection { background: var(--accent); color: #000; }
+  </style>
+</head>
+<body>
+
+<div id="scrollbar-track">
+  <div id="scrollbar-thumb"></div>
+</div>
+
+<div id="scroll-wrap">
+
+  <section class="hero">
+    <p class="hero-label">wlw · quotes</p>
+    <h1 class="hero-main">Lesbian Quotes</h1>
+    <p class="hero-sub">for the ones who found each other</p>
+    <span class="scroll-hint">scroll ↓</span>
+  </section>
+
+  <div class="quotes-container">
+
+    <div class="quote-block"><div class="quote-number">01</div><p class="quote-text short">"She looked at me first. I looked back. The end."</p></div>
+    <div class="quote-block"><div class="quote-number">02</div><p class="quote-text">"She made me feel like being myself was the most interesting thing I could possibly do."</p></div>
+    <div class="quote-block"><div class="quote-number">03</div><p class="quote-text short">"Soft girls. Loud love."</p></div>
+    <div class="quote-block"><div class="quote-number">04</div><p class="quote-text">"She told me she loved me with her whole chest and I stood there like an idiot smiling at the floor."</p></div>
+    <div class="quote-block"><div class="quote-number">05</div><p class="quote-text short">"She's my person. She steals the blanket. Worth it."</p></div>
+    <div class="quote-block"><div class="quote-number">06</div><p class="quote-text">"Two women slow dancing in a kitchen at midnight. Nobody watching. That's love."</p></div>
+    <div class="quote-block"><div class="quote-number">07</div><p class="quote-text short">"Two moms. Twice the love. Zero dad jokes."</p></div>
+    <div class="quote-block"><div class="quote-number">08</div><p class="quote-text">"The world told me what love should look like. I looked at her and unlearned all of it."</p></div>
+    <div class="quote-block"><div class="quote-number">09</div><p class="quote-text short">"My heart is lesbian. My brain tried to argue. My heart won."</p></div>
+    <div class="quote-block"><div class="quote-number">10</div><p class="quote-text">"She laughed at my joke before I finished it. I was completely done for."</p></div>
+    <div class="quote-block"><div class="quote-number">11</div><p class="quote-text short">"Two girls in love is not complicated. Society made it complicated."</p></div>
+    <div class="quote-block"><div class="quote-number">12</div><p class="quote-text">"She kissed me like she'd been meaning to for a long time and was annoyed at herself for waiting."</p></div>
+    <div class="quote-block"><div class="quote-number">13</div><p class="quote-text short">"She's the reason I smile at my phone like an idiot."</p></div>
+    <div class="quote-block"><div class="quote-number">14</div><p class="quote-text">"I didn't choose to be lesbian. I chose to stop hiding it. Best decision I ever made."</p></div>
+    <div class="quote-block"><div class="quote-number">15</div><p class="quote-text short">"She knew. I knew. We both pretended. For a while."</p></div>
+    <div class="quote-block"><div class="quote-number">16</div><p class="quote-text">"She snores and hogs the charger and is the best thing that ever happened to me."</p></div>
+    <div class="quote-block"><div class="quote-number">17</div><p class="quote-text short">"Lesbian? Yes. Apologizing? Never."</p></div>
+    <div class="quote-block"><div class="quote-number">18</div><p class="quote-text">"She said my name like it was a good thing. Nobody had ever done that before."</p></div>
+    <div class="quote-block"><div class="quote-number">19</div><p class="quote-text short">"Grew up scared of this. Now it's my favorite thing about myself."</p></div>
+    <div class="quote-block"><div class="quote-number">20</div><p class="quote-text">"She treats my weirdness like it's her favorite thing about me. It might be."</p></div>
+    <div class="quote-block"><div class="quote-number">21</div><p class="quote-text short">"Two girls sharing a hoodie and a future. Just Tuesday."</p></div>
+    <div class="quote-block"><div class="quote-number">22</div><p class="quote-text">"I loved her quietly for two years. Then I loved her loudly for the rest of my life."</p></div>
+    <div class="quote-block"><div class="quote-number">23</div><p class="quote-text short">"She looked at me like I was worth looking at. I didn't know that could happen."</p></div>
+    <div class="quote-block"><div class="quote-number">24</div><p class="quote-text">"Two women building a life together in a world that didn't always want them to. That's not just love. That's defiance."</p></div>
+    <div class="quote-block"><div class="quote-number">25</div><p class="quote-text short">"She makes me laugh so hard I forget to be scared."</p></div>
+    <div class="quote-block"><div class="quote-number">26</div><p class="quote-text">"She asked me to dance at a wedding where we knew no one. I said yes. I've been saying yes ever since."</p></div>
+    <div class="quote-block"><div class="quote-number">27</div><p class="quote-text short">"Not a phase. A whole lifestyle upgrade."</p></div>
+    <div class="quote-block"><div class="quote-number">28</div><p class="quote-text">"She makes me feel like every terrible thing I went through was just the road to her."</p></div>
+    <div class="quote-block"><div class="quote-number">29</div><p class="quote-text short">"Two hoodies. One couple. No rules."</p></div>
+    <div class="quote-block"><div class="quote-number">30</div><p class="quote-text">"There are a thousand ways to be a woman. She showed me the one that looked like her and I thought: yes. That one."</p></div>
+    <div class="quote-block"><div class="quote-number">31</div><p class="quote-text short">"She kissed me and I forgot every reason I had to be afraid."</p></div>
+    <div class="quote-block"><div class="quote-number">32</div><p class="quote-text">"I came out and the world didn't end. It got a lot more colorful."</p></div>
+    <div class="quote-block"><div class="quote-number">33</div><p class="quote-text short">"She held my hand in public and I felt like I'd swallowed the sun."</p></div>
+    <div class="quote-block"><div class="quote-number">34</div><p class="quote-text">"She's the first person I've ever wanted to be boring with. Just stay home, do nothing, be together."</p></div>
+    <div class="quote-block"><div class="quote-number">35</div><p class="quote-text short">"I'm not confused. I'm a lesbian and dramatic."</p></div>
+    <div class="quote-block"><div class="quote-number">36</div><p class="quote-text">"She kissed me like punctuation at the end of a sentence I'd been writing my whole life."</p></div>
+    <div class="quote-block"><div class="quote-number">37</div><p class="quote-text short">"Two lesbians, one dream, zero heterosexual energy."</p></div>
+    <div class="quote-block"><div class="quote-number">38</div><p class="quote-text">"I don't have a type. I have a her-shaped hole in my chest that she fits exactly."</p></div>
+    <div class="quote-block"><div class="quote-number">39</div><p class="quote-text short">"Same team. Undefeated."</p></div>
+    <div class="quote-block"><div class="quote-number">40</div><p class="quote-text">"We said 'I love you' at the same time. We've been insufferable about it ever since."</p></div>
+    <div class="quote-block"><div class="quote-number">41</div><p class="quote-text short">"Closets are for clothes. I moved out."</p></div>
+    <div class="quote-block"><div class="quote-number">42</div><p class="quote-text">"She called me her girlfriend for the first time in front of strangers and I almost fell over."</p></div>
+    <div class="quote-block"><div class="quote-number">43</div><p class="quote-text short">"lesbian and in love. Name a better combo."</p></div>
+    <div class="quote-block"><div class="quote-number">44</div><p class="quote-text">"She listens to me like every word I say matters. I've been talking ever since."</p></div>
+    <div class="quote-block"><div class="quote-number">45</div><p class="quote-text short">"Straight? Tried it. 0 out of 10."</p></div>
+    <div class="quote-block"><div class="quote-number">46</div><p class="quote-text">"I prayed to be different once. Now I pray to stay exactly this way forever."</p></div>
+    <div class="quote-block"><div class="quote-number">47</div><p class="quote-text short">"Out, proud, and slightly feral."</p></div>
+    <div class="quote-block"><div class="quote-number">48</div><p class="quote-text">"She told me I was beautiful when I looked terrible and meant it. I have no explanation for how lucky I am."</p></div>
+    <div class="quote-block"><div class="quote-number">49</div><p class="quote-text short">"We're a disaster. A cute, very lesbian disaster."</p></div>
+    <div class="quote-block"><div class="quote-number">50</div><p class="quote-text">"Two girls holding hands in a city that was built to ignore them. Still here. Still holding on."</p></div>
+    <div class="quote-block"><div class="quote-number">51</div><p class="quote-text short">"She's my home. Wherever she is."</p></div>
+    <div class="quote-block"><div class="quote-number">52</div><p class="quote-text">"Being lesbian wasn't the hardest part. The hardest part was believing I deserved to be happy about it."</p></div>
+    <div class="quote-block"><div class="quote-number">53</div><p class="quote-text short">"She's my person. Don't tell her. Actually, tell her."</p></div>
+    <div class="quote-block"><div class="quote-number">54</div><p class="quote-text">"We fight about who loves the other more. Neither of us will ever win. That's the point."</p></div>
+    <div class="quote-block"><div class="quote-number">55</div><p class="quote-text short">"Soft hands. Loud heart. 100% lesbian."</p></div>
+    <div class="quote-block"><div class="quote-number">56</div><p class="quote-text">"She walked in and the part of me that was pretending just gave up. Thank god."</p></div>
+    <div class="quote-block"><div class="quote-number">57</div><p class="quote-text short">"Lesbian couple goals: matching pajamas, zero shame."</p></div>
+    <div class="quote-block"><div class="quote-number">58</div><p class="quote-text">"The day I stopped apologizing for who I loved was the day I started actually living."</p></div>
+    <div class="quote-block"><div class="quote-number">59</div><p class="quote-text short">"She looked at me like I was the punchline to a very good joke."</p></div>
+    <div class="quote-block"><div class="quote-number">60</div><p class="quote-text">"We share everything: clothes, skincare, opinions, and an irrational hatred of the same coworker."</p></div>
+    <div class="quote-block"><div class="quote-number">61</div><p class="quote-text short">"Being seen by the right person heals something nothing else can."</p></div>
+    <div class="quote-block"><div class="quote-number">62</div><p class="quote-text">"I didn't realize how much of myself I'd been hiding until she made it safe to stop."</p></div>
+    <div class="quote-block"><div class="quote-number">63</div><p class="quote-text short">"Not confused. Not a phase. Just wildly, happily lesbian."</p></div>
+    <div class="quote-block"><div class="quote-number">64</div><p class="quote-text">"She makes me want to be more completely myself. That's the whole thing."</p></div>
+    <div class="quote-block"><div class="quote-number">65</div><p class="quote-text short">"Two moms. One heart. Endless chaos."</p></div>
+    <div class="quote-block"><div class="quote-number">66</div><p class="quote-text">"I came out at 27. Some people bloom early. Some bloom in a Taco Bell parking lot."</p></div>
+    <div class="quote-block"><div class="quote-number">67</div><p class="quote-text short">"She said forever. I said obviously."</p></div>
+    <div class="quote-block"><div class="quote-number">68</div><p class="quote-text">"There's a version of me that never came out. I think about her sometimes and I'm so glad I'm not her anymore."</p></div>
+    <div class="quote-block"><div class="quote-number">69</div><p class="quote-text short">"She's annoyingly perfect. I'm annoyed. I'm also in love."</p></div>
+    <div class="quote-block"><div class="quote-number">70</div><p class="quote-text">"Love doesn't care about your plans. It shows up at the wrong time, wrong place — and it's still the most right thing that ever happened to you."</p></div>
+    <div class="quote-block"><div class="quote-number">71</div><p class="quote-text short">"Pride: the annual reminder that we survived."</p></div>
+    <div class="quote-block"><div class="quote-number">72</div><p class="quote-text">"She asked what I wanted and I realized no one had ever asked me that before. I said: you."</p></div>
+    <div class="quote-block"><div class="quote-number">73</div><p class="quote-text short">"Love won. Love keeps winning."</p></div>
+    <div class="quote-block"><div class="quote-number">74</div><p class="quote-text">"She's the first person I've ever wanted to fight with. That means something."</p></div>
+    <div class="quote-block"><div class="quote-number">75</div><p class="quote-text short">"Lesbian solidarity: no explanation needed. We just know."</p></div>
+    <div class="quote-block"><div class="quote-number">76</div><p class="quote-text">"We danced at 2am in a parking lot to a song neither of us knew. Never been more in love."</p></div>
+    <div class="quote-block"><div class="quote-number">77</div><p class="quote-text short">"She cooks. I do dishes. We're basically married."</p></div>
+    <div class="quote-block"><div class="quote-number">78</div><p class="quote-text">"The most radical thing I ever did was let myself be happy."</p></div>
+    <div class="quote-block"><div class="quote-number">79</div><p class="quote-text short">"Two girls. One bed. A whole future."</p></div>
+    <div class="quote-block"><div class="quote-number">80</div><p class="quote-text">"She doesn't complete me. She makes me want to be more completely myself."</p></div>
+    <div class="quote-block"><div class="quote-number">81</div><p class="quote-text short">"Being queer is not a burden. It's a light I learned to let out."</p></div>
+    <div class="quote-block"><div class="quote-number">82</div><p class="quote-text">"She smells like my shampoo because she keeps using it and I refuse to be mad."</p></div>
+    <div class="quote-block"><div class="quote-number">83</div><p class="quote-text short">"Coming out is not one moment. It's a thousand brave ones."</p></div>
+    <div class="quote-block"><div class="quote-number">84</div><p class="quote-text">"Being a lesbian means carrying your whole history of hiding and then one day choosing not to. That's bravery."</p></div>
+    <div class="quote-block"><div class="quote-number">85</div><p class="quote-text short">"She's my person and she's very annoying and I love her."</p></div>
+    <div class="quote-block"><div class="quote-number">86</div><p class="quote-text">"I kept waiting for someone to tell me it was okay. Eventually I stopped waiting and told myself."</p></div>
+    <div class="quote-block"><div class="quote-number">87</div><p class="quote-text short">"Same wavelength. Same love."</p></div>
+    <div class="quote-block"><div class="quote-number">88</div><p class="quote-text">"She met me at my worst and somehow decided I was worth sticking around for."</p></div>
+    <div class="quote-block"><div class="quote-number">89</div><p class="quote-text short">"Queer joy is real and it is loud and it is mine."</p></div>
+    <div class="quote-block"><div class="quote-number">90</div><p class="quote-text">"We are the love story nobody wrote for us, so we wrote it ourselves."</p></div>
+    <div class="quote-block"><div class="quote-number">91</div><p class="quote-text short">"She's not my other half. She's her own whole person. That's better."</p></div>
+    <div class="quote-block"><div class="quote-number">92</div><p class="quote-text">"Queer family is chosen family. I chose extremely well."</p></div>
+    <div class="quote-block"><div class="quote-number">93</div><p class="quote-text short">"She borrowed my jacket. Looked better in it. Kept it obviously."</p></div>
+    <div class="quote-block"><div class="quote-number">94</div><p class="quote-text">"Growing up queer means learning early that love is something you fight for. We haven't stopped fighting."</p></div>
+    <div class="quote-block"><div class="quote-number">95</div><p class="quote-text short">"God made me a lesbian. My parents made me polite about it."</p></div>
+    <div class="quote-block"><div class="quote-number">96</div><p class="quote-text">"The thing about loving another woman is you have to write the whole script yourselves. I love that."</p></div>
+    <div class="quote-block"><div class="quote-number">97</div><p class="quote-text short">"Decided to be lesbian instead of being sad. Best trade I ever made."</p></div>
+    <div class="quote-block"><div class="quote-number">98</div><p class="quote-text">"She's the reason I understand every sappy love song I used to roll my eyes at."</p></div>
+    <div class="quote-block"><div class="quote-number">99</div><p class="quote-text short">"Two women. One life. Zero regrets."</p></div>
+    <div class="quote-block"><div class="quote-number">100</div><p class="quote-text">"We don't fit the mold. We never tried to. That's kind of the whole point."</p></div>
+    <div class="quote-block"><div class="quote-number">101</div><p class="quote-text short">"She's my favorite inconvenience."</p></div>
+    <div class="quote-block"><div class="quote-number">102</div><p class="quote-text">"I was so good at hiding. She was so good at finding. Eventually I stopped running."</p></div>
+    <div class="quote-block"><div class="quote-number">103</div><p class="quote-text short">"Same poles. Way stronger pull."</p></div>
+    <div class="quote-block"><div class="quote-number">104</div><p class="quote-text">"She looked at me the way I'd always wanted to be looked at and I had no idea what to do about it."</p></div>
+    <div class="quote-block"><div class="quote-number">105</div><p class="quote-text short">"Lesbian and thriving. Mostly thriving."</p></div>
+    <div class="quote-block"><div class="quote-number">106</div><p class="quote-text">"She texts first. She laughs loudest. She loves hardest. She's mine."</p></div>
+    <div class="quote-block"><div class="quote-number">107</div><p class="quote-text short">"We're not roommates. We're in love. Same energy though."</p></div>
+    <div class="quote-block"><div class="quote-number">108</div><p class="quote-text">"I used to dream in straight lines. Then I met her and everything went beautifully sideways."</p></div>
+    <div class="quote-block"><div class="quote-number">109</div><p class="quote-text short">"She held my face like I was something worth keeping."</p></div>
+    <div class="quote-block"><div class="quote-number">110</div><p class="quote-text">"Being yourself is the only version of you that anyone worth knowing actually wants."</p></div>
+    <div class="quote-block"><div class="quote-number">111</div><p class="quote-text short">"She's my person. Even when she's wrong. Especially then."</p></div>
+    <div class="quote-block"><div class="quote-number">112</div><p class="quote-text">"The first time we kissed I thought: oh, this is what all the fuss was about. Oh no."</p></div>
+    <div class="quote-block"><div class="quote-number">113</div><p class="quote-text short">"We're lesbian and in love and frankly unstoppable."</p></div>
+    <div class="quote-block"><div class="quote-number">114</div><p class="quote-text">"She doesn't need me to be different. That's the whole thing."</p></div>
+    <div class="quote-block"><div class="quote-number">115</div><p class="quote-text short">"Love is not a straight line. Thank god."</p></div>
+    <div class="quote-block"><div class="quote-number">116</div><p class="quote-text">"She told me she was proud of me and I had to go to a different room for a minute."</p></div>
+    <div class="quote-block"><div class="quote-number">117</div><p class="quote-text short">"We have an entire language of looks. Nobody else is fluent."</p></div>
+    <div class="quote-block"><div class="quote-number">118</div><p class="quote-text">"I've never been more myself than when I stopped pretending to be someone else for someone else's comfort."</p></div>
+    <div class="quote-block"><div class="quote-number">119</div><p class="quote-text short">"She got lost with me once. Best three hours of my life."</p></div>
+    <div class="quote-block"><div class="quote-number">120</div><p class="quote-text">"I don't know what I did to deserve her. I try not to question it. I just try to deserve it."</p></div>
+    <div class="quote-block"><div class="quote-number">121</div><p class="quote-text short">"lesbian rights are human rights. Also she's really cute. Moving on."</p></div>
+    <div class="quote-block"><div class="quote-number">122</div><p class="quote-text">"We didn't make sense on paper. We made sense in every other way that matters."</p></div>
+    <div class="quote-block"><div class="quote-number">123</div><p class="quote-text short">"She's not perfect. She's better."</p></div>
+    <div class="quote-block"><div class="quote-number">124</div><p class="quote-text">"I was afraid of what I was. Now I'm just annoyed it took me so long to enjoy it."</p></div>
+    <div class="quote-block"><div class="quote-number">125</div><p class="quote-text short">"Two girls in love. That's the whole story."</p></div>
+    <div class="quote-block"><div class="quote-number">126</div><p class="quote-text">"She's funny and kind and annoyingly right about most things and I would do anything for her."</p></div>
+    <div class="quote-block"><div class="quote-number">127</div><p class="quote-text short">"We're basically one person. She has all the good qualities."</p></div>
+    <div class="quote-block"><div class="quote-number">128</div><p class="quote-text">"I spent years building walls. She spent five minutes making me want to tear them all down."</p></div>
+    <div class="quote-block"><div class="quote-number">129</div><p class="quote-text short">"Lesbian? Absolutely. Graceful? Working on it."</p></div>
+    <div class="quote-block"><div class="quote-number">130</div><p class="quote-text">"She's the first person I've wanted to tell everything to. That terrified me. I told her anyway."</p></div>
+    <div class="quote-block"><div class="quote-number">131</div><p class="quote-text short">"Same sign. Astrologers warned us. We didn't listen."</p></div>
+    <div class="quote-block"><div class="quote-number">132</div><p class="quote-text">"We argue about everything except the important stuff. On the important stuff we're always the same."</p></div>
+    <div class="quote-block"><div class="quote-number">133</div><p class="quote-text short">"She looked up and smiled and that was it."</p></div>
+    <div class="quote-block"><div class="quote-number">134</div><p class="quote-text">"Love is not about fitting in. It's about finding the one person who makes not fitting in feel like freedom."</p></div>
+    <div class="quote-block"><div class="quote-number">135</div><p class="quote-text short">"She's the reason I believe in things."</p></div>
+    <div class="quote-block"><div class="quote-number">136</div><p class="quote-text">"Being a lesbian is not a burden I carry. It's a light I learned to let out. She helped."</p></div>
+    <div class="quote-block"><div class="quote-number">137</div><p class="quote-text short">"Two women. One apartment. Seventeen plants. Happy."</p></div>
+    <div class="quote-block"><div class="quote-number">138</div><p class="quote-text">"My dad asked when I'd bring a boyfriend home. I brought her. He came around."</p></div>
+    <div class="quote-block"><div class="quote-number">139</div><p class="quote-text short">"Love is love. Physics is wrong. The end."</p></div>
+    <div class="quote-block"><div class="quote-number">140</div><p class="quote-text">"She's the best thing that never made sense on paper."</p></div>
+    <div class="quote-block"><div class="quote-number">141</div><p class="quote-text short">"We're not brave. We're just stubborn."</p></div>
+    <div class="quote-block"><div class="quote-number">142</div><p class="quote-text">"I don't need anyone's permission to love who I love. I gave myself that permission and it changed everything."</p></div>
+    <div class="quote-block"><div class="quote-number">143</div><p class="quote-text short">"She's mine. I'm hers. That's enough."</p></div>
+    <div class="quote-block"><div class="quote-number">144</div><p class="quote-text">"Every love story is weird from the outside. Ours is just also lesbian, which makes it better."</p></div>
+    <div class="quote-block"><div class="quote-number">145</div><p class="quote-text short">"Still lesbian. Still grateful. Still going."</p></div>
+    <div class="quote-block"><div class="quote-number">146</div><p class="quote-text">"She's not perfect but she's perfectly herself and I am obsessed with that."</p></div>
+    <div class="quote-block"><div class="quote-number">147</div><p class="quote-text short">"Matching energy. Matching hearts. Same team."</p></div>
+    <div class="quote-block"><div class="quote-number">148</div><p class="quote-text">"She makes terrible jokes and I laugh every single time. I know what that says about me."</p></div>
+    <div class="quote-block"><div class="quote-number">149</div><p class="quote-text short">"Two girls, one dream, zero heterosexual energy."</p></div>
+    <div class="quote-block"><div class="quote-number">150</div><p class="quote-text">"I fell for my best friend. It was the least surprising thing that ever surprised me."</p></div>
+    <div class="quote-block"><div class="quote-number">151</div><p class="quote-text short">"She's the first person I've ever wanted to grow old with. Which is terrifying. Great."</p></div>
+    <div class="quote-block"><div class="quote-number">152</div><p class="quote-text">"We got here the long way. Still got here."</p></div>
+    <div class="quote-block"><div class="quote-number">153</div><p class="quote-text short">"Lesbian love is just love with better taste in music."</p></div>
+    <div class="quote-block"><div class="quote-number">154</div><p class="quote-text">"She said she loved me and my brain went completely offline. Still hasn't fully recovered."</p></div>
+    <div class="quote-block"><div class="quote-number">155</div><p class="quote-text short">"She's my favorite plot twist."</p></div>
+    <div class="quote-block"><div class="quote-number">156</div><p class="quote-text">"There's something about being known — really known — by someone who has the same map of the world as you."</p></div>
+    <div class="quote-block"><div class="quote-number">157</div><p class="quote-text short">"She chose me back. That's the whole miracle."</p></div>
+    <div class="quote-block"><div class="quote-number">158</div><p class="quote-text">"I was afraid I'd never have this. Now I have to remind myself it's real."</p></div>
+    <div class="quote-block"><div class="quote-number">159</div><p class="quote-text short">"Two moms, one chaotic household, infinite love."</p></div>
+    <div class="quote-block"><div class="quote-number">160</div><p class="quote-text">"She's not what I expected. She's better than anything I thought to expect."</p></div>
+    <div class="quote-block"><div class="quote-number">161</div><p class="quote-text short">"Same poles. Way stronger pull."</p></div>
+    <div class="quote-block"><div class="quote-number">162</div><p class="quote-text">"We finish each other's sentences and each other's takeout. That's love."</p></div>
+    <div class="quote-block"><div class="quote-number">163</div><p class="quote-text short">"She's home. In the full corny sense of that word."</p></div>
+    <div class="quote-block"><div class="quote-number">164</div><p class="quote-text">"She looked at me in public and didn't look away. I'd never had that before."</p></div>
+    <div class="quote-block"><div class="quote-number">165</div><p class="quote-text short">"We don't make sense. We make love. Same thing."</p></div>
+    <div class="quote-block"><div class="quote-number">166</div><p class="quote-text">"She held my hand in a city where that used to mean danger. We held on anyway."</p></div>
+    <div class="quote-block"><div class="quote-number">167</div><p class="quote-text short">"Love found me. Turns out it looked like her."</p></div>
+    <div class="quote-block"><div class="quote-number">168</div><p class="quote-text">"I used to think love required a script. Turns out it just requires two people willing to improvise."</p></div>
+    <div class="quote-block"><div class="quote-number">169</div><p class="quote-text short">"She gets it without me having to explain. That's everything."</p></div>
+    <div class="quote-block"><div class="quote-number">170</div><p class="quote-text">"The bravest thing I ever did was text her 'I think I like you' at midnight and not take it back."</p></div>
+    <div class="quote-block"><div class="quote-number">171</div><p class="quote-text short">"Lesbian isn't what I am. It's also who I am. Both."</p></div>
+    <div class="quote-block"><div class="quote-number">172</div><p class="quote-text">"Two women in love in a world that didn't build that in. Still here. Still in love."</p></div>
+    <div class="quote-block"><div class="quote-number">173</div><p class="quote-text short">"She's annoying. She's perfect. These are connected."</p></div>
+    <div class="quote-block"><div class="quote-number">174</div><p class="quote-text">"Being a lesbian isn't the whole story. It's just the part that makes the rest of the story possible."</p></div>
+    <div class="quote-block"><div class="quote-number">175</div><p class="quote-text short">"She said my name and something in me went quiet."</p></div>
+    <div class="quote-block"><div class="quote-number">176</div><p class="quote-text">"We are the love story nobody wrote for us, so we wrote it ourselves. It's good. Really good."</p></div>
+    <div class="quote-block"><div class="quote-number">177</div><p class="quote-text short">"Queer love is love with extra steps and I'd do every one again."</p></div>
+    <div class="quote-block"><div class="quote-number">178</div><p class="quote-text">"She fights for me in the small ways. That's the one that gets me."</p></div>
+    <div class="quote-block"><div class="quote-number">179</div><p class="quote-text short">"The audacity to be this in love. Honestly."</p></div>
+    <div class="quote-block"><div class="quote-number">180</div><p class="quote-text">"She turned around and smiled at me in a crowded room like I was the only person in it. I was done."</p></div>
+    <div class="quote-block"><div class="quote-number">181</div><p class="quote-text short">"Lesbian love is just love. Louder. Better dressed."</p></div>
+    <div class="quote-block"><div class="quote-number">182</div><p class="quote-text">"I don't know who I'd be without her. I know I'm better with her. That's enough."</p></div>
+    <div class="quote-block"><div class="quote-number">183</div><p class="quote-text short">"Matching tattoos. Matching chaos. We're fine."</p></div>
+    <div class="quote-block"><div class="quote-number">184</div><p class="quote-text">"We met. We liked each other. We kept choosing that. That's the whole love story."</p></div>
+    <div class="quote-block"><div class="quote-number">185</div><p class="quote-text short">"She makes me brave in the stupid ways that actually matter."</p></div>
+    <div class="quote-block"><div class="quote-number">186</div><p class="quote-text">"I was scared of what I was for a long time. Now it's the thing I'm most proud of."</p></div>
+    <div class="quote-block"><div class="quote-number">187</div><p class="quote-text short">"Two girls. Full hearts. Can't lose."</p></div>
+    <div class="quote-block"><div class="quote-number">188</div><p class="quote-text">"She makes terrible coffee and I drink it every morning without complaint. That's devotion."</p></div>
+    <div class="quote-block"><div class="quote-number">189</div><p class="quote-text short">"Still lesbian. Still here. Still hers."</p></div>
+    <div class="quote-block"><div class="quote-number">190</div><p class="quote-text">"Love is the most ordinary extraordinary thing. And it found me, and it looks like her, and I will never get over it."</p></div>
+    <div class="quote-block"><div class="quote-number">191</div><p class="quote-text short">"She's my whole heart wearing a jacket I lent her."</p></div>
+    <div class="quote-block"><div class="quote-number">192</div><p class="quote-text">"We're not a love story because we're dramatic. We're a love story because we show up."</p></div>
+    <div class="quote-block"><div class="quote-number">193</div><p class="quote-text short">"She's worth every scared moment it took to get here."</p></div>
+    <div class="quote-block"><div class="quote-number">194</div><p class="quote-text">"I used to think being lesbian was the hard part. Turns out the hard part was just being human. She helps with that."</p></div>
+    <div class="quote-block"><div class="quote-number">195</div><p class="quote-text short">"Two women in love. That's enough. That's everything."</p></div>
+    <div class="quote-block"><div class="quote-number">196</div><p class="quote-text">"She walked into my life and made me realize how much of it I'd been living quietly. I'm louder now."</p></div>
+    <div class="quote-block"><div class="quote-number">197</div><p class="quote-text short">"She said 'us' and I forgot how to be a person for a second."</p></div>
+    <div class="quote-block"><div class="quote-number">198</div><p class="quote-text">"Not confused. Not a phase. Just wildly, completely, finally myself."</p></div>
+    <div class="quote-block"><div class="quote-number">199</div><p class="quote-text short">"She's the best thing I ever let happen to me."</p></div>
+    <div class="quote-block"><div class="quote-number">200</div><p class="quote-text">"200 quotes. Still not enough words. Still in love. Still lesbian. Still here."</p></div>
+
+  </div>
+</div>
+
+<script>
+  const wrap = document.getElementById('scroll-wrap');
+  const thumb = document.getElementById('scrollbar-thumb');
+  const track = document.getElementById('scrollbar-track');
+
+  function updateThumb() {
+    const trackH = track.clientHeight;
+    const thumbH = Math.max(32, (wrap.clientHeight / wrap.scrollHeight) * trackH);
+    const scrollRatio = wrap.scrollTop / (wrap.scrollHeight - wrap.clientHeight);
+    const thumbTop = scrollRatio * (trackH - thumbH);
+    thumb.style.height = thumbH + 'px';
+    thumb.style.top = thumbTop + 'px';
+  }
+
+  wrap.addEventListener('scroll', updateThumb);
+  window.addEventListener('resize', updateThumb);
+  updateThumb();
+
+  let dragging = false, startY = 0, startScroll = 0;
+  thumb.addEventListener('mousedown', e => {
+    dragging = true;
+    startY = e.clientY;
+    startScroll = wrap.scrollTop;
+    thumb.classList.add('dragging');
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    const trackH = track.clientHeight;
+    const thumbH = parseFloat(thumb.style.height);
+    const ratio = (e.clientY - startY) / (trackH - thumbH);
+    wrap.scrollTop = startScroll + ratio * (wrap.scrollHeight - wrap.clientHeight);
+  });
+  document.addEventListener('mouseup', () => {
+    dragging = false;
+    thumb.classList.remove('dragging');
+  });
+
+  const blocks = document.querySelectorAll('.quote-block');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1, root: wrap });
+  blocks.forEach(b => obs.observe(b));
+</script>
+
+</body>
+</html>
